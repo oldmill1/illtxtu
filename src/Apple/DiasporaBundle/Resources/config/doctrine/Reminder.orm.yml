@@ -1,0 +1,24 @@
+Apple\DiasporaBundle\Entity\Reminder:
+    type: entity
+    table: null
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        task:
+            type: text
+        pulltime:
+            type: datetime
+        phonenumber:
+            type: string
+            length: 255
+        donation:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks: {  }

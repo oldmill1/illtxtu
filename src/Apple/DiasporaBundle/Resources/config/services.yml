@@ -1,0 +1,7 @@
+parameters:
+#    apple_diaspora.example.class: Apple\DiasporaBundle\Example
+
+services:
+#    apple_diaspora.example:
+#        class: %apple_diaspora.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

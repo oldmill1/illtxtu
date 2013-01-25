@@ -1,0 +1,13 @@
+{% extends 'AppleDiasporaBundle::layout.html.twig' %}
+{% block content %}
+<form action="{{ path('reminder_new') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	<p class="lead">Remind me to {{ form_widget(form.task, { 'attr': {'placeholder': 'sync my phone', 'autofocus':'true', 'onclick':''} }) }}</p>
+	<p class="lead">on {{ form_widget(form.pulltime, { 'attr': {'placeholder': "now"|date("m/d/Y") }}) }}at <input type="text" id="form_timetime" name="form[timetime]" id="form_timetime" required="required" placeholder='{{  "now"|date("g:i") }}' /></p>
+	<p class="lead">Text me at {{ form_widget(form.phonenumber, { 'attr': {'placeholder': '(555) 323 2312' }}) }}</p>
+	<hr />
+	<input type="submit" class="button" value="Set Reminder" />
+	<br />
+	<p style="float:right;"class="muted"><small>(We won't share your number with anyone. You're not that cool anyway.)</small></p>
+</form>
+{% endblock %}

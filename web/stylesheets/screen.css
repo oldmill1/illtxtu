@@ -1,0 +1,149 @@
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 60px;
+}
+#footer {
+  background-color: #f5f5f5;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+.container {
+  width: auto;
+  max-width: 680px;
+}
+
+.container .credit {
+  margin: 20px 0;
+}
+
+#content{ padding-top: 60px;}
+
+.lead {
+  margin-bottom:0;
+}
+/* Form 
+-------------------------------------------------- */
+
+#form_task {
+  border:0;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 30px;
+  box-shadow: none;
+  padding:0;
+  margin:0;
+  height:35px;
+}
+
+#form_pulltime {
+  border:0;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 30px;
+  box-shadow: none;
+  padding:0;
+  height:40px;
+  margin:0;
+  margin-top:-3px;
+  width:119px;
+}
+
+#form_timetime {
+  border:0;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 30px;
+  width:100%;
+  box-shadow: none;
+  padding:0;
+  height:40px;
+  margin:0;
+  width:130px;
+  margin-top:-3px;
+}
+
+#form_phonenumber {
+  border:0;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 30px;
+  width:100%;
+  box-shadow: none;
+  padding:0;
+  height:40px;
+  margin:0;
+  width:220px;
+  margin-top:-3px;
+  margin-left:1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

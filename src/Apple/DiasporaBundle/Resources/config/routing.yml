@@ -1,0 +1,11 @@
+apple_diaspora_homepage:
+    pattern:  /
+    defaults: { _controller: AppleDiasporaBundle:Default:index }
+
+reminder_new:
+    pattern:  /new
+    defaults: { _controller: AppleDiasporaBundle:Default:new }
+
+check:
+    pattern:  /check
+    defaults: { _controller: AppleDiasporaBundle:Default:check }
