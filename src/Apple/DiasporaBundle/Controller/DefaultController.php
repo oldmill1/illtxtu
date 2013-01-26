@@ -65,23 +65,21 @@ class DefaultController extends Controller
 
     public function processReplyAction(Request $request)
     { 
-        //$sender = $request->request->get('From');
-        //$body = $request->request->get('Body');
-
-        //$body = "Pick up milk, 1:45 pm";
-        $body = "Pick up milk, 134a";
+        $sender = $request->request->get('From');
+        $body = $request->request->get('Body');
+        
+        $sender = "+16473781318";
+        $body = "send me stuff, 134"; 
 
         $values = explode(",", $body); 
         $values_size = count($values);
-
         if ($values_size==1)
         { 
             // provided too few data points
         }
         elseif ($values_size==2||$values_size==3)
         { 
-            $task= $values[0];
-            strip_tags($task);
+            $task= strip_tags(trim($values[0]));
             $time= trim($values[1]); 
             $dateIntervalString = "PT"; 
             if ( substr($time, 0, 2) == 'in' ){
@@ -100,11 +98,9 @@ class DefaultController extends Controller
                 }
                 $date = new \DateTime(); 
                 $date->add(new \DateInterval($dateIntervalString)); 
-                echo $date->format('Y-m-d H:i'); 
             } elseif(preg_match('/[Ll]ater [Tt]oday/', $time)) {
                 $date = new \DateTime();
                 $date->add(new \DateInterval("PT6H"));
-                echo $date->format('Y-m-d H:i'); 
             } else {
                 $timeChunks = str_split($time); 
                 foreach ($timeChunks as $chunkKey => $chunkValue ) { 
@@ -150,15 +146,23 @@ class DefaultController extends Controller
                     $dateString = date("Y-m-d", strtotime($values[2])); 
                 }   
                 $dateTimeString = $dateString . " " . $timeString; 
-                $dateTime = new \DateTime($dateTimeString);
-                echo $dateTime->format('Y-m-d H:i');
+                $date = new \DateTime($dateTimeString);
             }
         }
-        elseif ($values_size==3) {
 
-        }
+        $reminder = new Reminder(); 
+        $reminder->setTask($task);
+        $reminder->setPhonenumber($sender);
+        $reminder->setCreatedAt(new \DateTime());
+        $reminder->setUpdatedAt(new \DateTime());
+        $reminder->setDonation(0);
+        $reminder->setPulltime($date);
 
-        return new Response(); 
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($reminder);
+        $em->flush();
+
+        return new Response($reminder->getId()); 
     }
 
 
