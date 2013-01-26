@@ -4,7 +4,7 @@ parameters:
     database_port:     ~
     database_name:     diaspora
     database_user:     root
-    database_password: kardon1
+    database_password: Greenhouse1
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
