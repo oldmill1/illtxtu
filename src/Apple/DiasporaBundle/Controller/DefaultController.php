@@ -67,10 +67,6 @@ class DefaultController extends Controller
     { 
         $sender = $request->request->get('From');
         $body = $request->request->get('Body');
-        
-        $sender = "+16473781318";
-        $body = "send me stuff, 134"; 
-
         $values = explode(",", $body); 
         $values_size = count($values);
         if ($values_size==1)

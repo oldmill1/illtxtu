@@ -12,7 +12,7 @@ parameters:
     database_host:      localhost
     database_name:      diaspora
     database_user:      root
-    database_password:  kardon1
+    database_password:  Greenhouse1
 
 monolog:
     handlers:
