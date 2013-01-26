@@ -9,6 +9,13 @@ web_profiler:
     toolbar: true
     intercept_redirects: false
 
+parameters:
+    database_driver:    pdo_mysql
+    database_host:      localhost
+    database_name:      diaspora
+    database_user:      root
+    database_password:  kardon1
+
 monolog:
     handlers:
         main:

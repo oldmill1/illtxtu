@@ -63,6 +63,113 @@ class DefaultController extends Controller
         return $this->render('AppleDiasporaBundle:Default:new.html.twig', array('form'=>$form->createView()));
     }
 
+    public function processReplyAction(Request $request)
+    { 
+        //$sender = $request->request->get('From');
+        //$body = $request->request->get('Body');
+
+        //$body = "Pick up milk, 1:45 pm";
+        $body = "Pick up milk, 650 p";
+
+        $values = explode(",", $body); 
+        $values_size = count($values);
+
+        if ($values_size==1)
+        { 
+            // provided too few data points
+        }
+        elseif ($values_size==2)
+        { 
+            $task= $values[0];
+            strip_tags($task);
+            $time= trim($values[1]); 
+            $dateIntervalString = "PT"; 
+            if ( substr($time, 0, 2) == 'in' ){
+                $inString = trim(str_replace("in", "", $time));
+                $dArray = explode(" ", $inString);
+                foreach ($dArray as $key => $link)
+                {
+                    if ($dArray[$key] == '')
+                    {
+                        unset($dArray[$key]);
+                    }
+                }
+                if (preg_match('/[a]/', $dArray[0])) {
+                    $dateIntervalString = $dateIntervalString . "1"; 
+                } elseif (preg_match('/[0-9]/', $dArray[0]))  {
+                    $dateIntervalString = $dateIntervalString . $dArray[0] . "H"; 
+                }
+                if ( count($dArray) > 2 ) { 
+                    $dateIntervalString =  $dateIntervalString . $dArray[2] . "M"; 
+                }
+                $date = new \DateTime(); 
+                $date->add(new \DateInterval($dateIntervalString)); 
+                echo $date->format('Y-m-d H:i'); 
+            } else {
+                $timeChunks = str_split($time); 
+
+                // split into 7:45, pm
+                foreach ($timeChunks as $chunk_key => $chunk_value ) { 
+                    if (preg_match('/[a-z]/', $chunk_value)){
+                        $suffix[] = $chunk_value;
+                        unset($timeChunks[$chunk_key]); 
+                    } 
+                } 
+                // remove empty records at the end of 7:45[][][]
+                while (end($timeChunks)==' '){
+                    array_pop($timeChunks);
+                }
+
+                $timeString = implode($timeChunks); 
+                
+                if(!preg_match('/[:]/', $timeString)){
+                    if (strlen($timeString) == 3) {
+                        $timeString = substr($timeString, 0, 1) . ":" . substr($timeString, 1);
+                    }elseif( strlen($timeString) == 4)  {
+                        $timeString = substr($timeString, 0, 2) . ":" . substr($timeString, 2);
+                    }
+                }
+
+                if ( $timeChunks[0]!='0' ) {                
+                    $timeString = "0" . $timeString; 
+                }
+
+                if (strlen($timeString)>5){
+                    $timeString = substr($timeString, 1);
+                }
+
+                // if am/pm found
+                if (isset($suffix) && count($suffix)>0){
+                    if ($suffix[0]=='a'){
+                        $timeString = $timeString . " AM"; 
+                    } else {
+                        $timeString = $timeString . " PM"; 
+                    }
+                } else {
+                    // not found, assume pm 
+                    $timeString = $timeString . " PM"; 
+                }
+
+                $timeString = str_replace(" ", "", $timeString);
+                $timeString = str_replace("PM", " PM", $timeString);
+                $timeString = str_replace("AM", " AM", $timeString);
+
+                $timeString = date("H:i", strtotime($timeString)); 
+                $dateString = date("Y-m-d"); 
+                
+                $dateTimeString = $dateString . " " . $timeString; 
+                $dateTime = new \DateTime($dateTimeString);
+                echo $dateTime->format('Y-m-d H:i');
+            }
+        }
+        elseif ($values_size==3) {
+
+        }
+
+        return new Response(); 
+    }
+
+
     public function checkAction()
     {  
         $this->includeTwilio();
